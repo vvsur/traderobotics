@@ -14,7 +14,7 @@ using TradeRobotics.DataProviders.Quik.Dom;
 namespace TradeRobotics.DataProviders.Quik
 {
 	/// <summary>
-	/// Load data from quik 111
+	/// Load data from quik
 	/// </summary>
 	public static class QuikQuotesLoader
 	{
