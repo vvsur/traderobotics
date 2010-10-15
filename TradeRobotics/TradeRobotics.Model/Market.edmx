@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Market.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="MarketStoreContainer">
+    <EntitySet Name="AllBars" EntityType="Market.Store.AllBars" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Quotes" EntityType="Market.Store.Quotes" store:Type="Tables" Schema="dbo" />
+  </EntityContainer>
+  <EntityType Name="AllBars">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Open" Type="float" Nullable="false" />
+    <Property Name="Low" Type="float" Nullable="false" />
+    <Property Name="High" Type="float" Nullable="false" />
+    <Property Name="Close" Type="float" Nullable="false" />
+    <Property Name="Volume" Type="int" Nullable="false" />
+    <Property Name="Time" Type="datetime" Nullable="false" />
+    <Property Name="Period" Type="int" Nullable="false" />
+    <Property Name="Symbol" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Quotes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Time" Type="datetime" Nullable="false" />
+    <Property Name="Price" Type="float" Nullable="false" />
+    <Property Name="Volume" Type="float" Nullable="false" />
+  </EntityType>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Market" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntityContainer Name="MarketContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AllBars" EntityType="Market.Bar" />
+          <EntitySet Name="Quotes" EntityType="Market.Quote" />
+        </EntityContainer>
+        <EntityType Name="Bar">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Double" Name="Open" Nullable="false" />
+          <Property Type="Double" Name="Low" Nullable="false" />
+          <Property Type="Double" Name="High" Nullable="false" />
+          <Property Type="Double" Name="Close" Nullable="false" />
+          <Property Type="Int32" Name="Volume" Nullable="false" />
+          <Property Type="DateTime" Name="Time" Nullable="false" />
+          <Property Type="Int32" Name="Period" Nullable="false" />
+          <Property Type="String" Name="Symbol" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Quote">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="Time" Nullable="false" />
+          <Property Type="Double" Name="Price" Nullable="false" />
+          <Property Type="Double" Name="Volume" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MarketStoreContainer" CdmEntityContainer="MarketContainer">
+    <EntitySetMapping Name="AllBars">
+      <EntityTypeMapping TypeName="IsTypeOf(Market.Bar)">
+        <MappingFragment StoreEntitySet="AllBars">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Open" ColumnName="Open" />
+          <ScalarProperty Name="Low" ColumnName="Low" />
+          <ScalarProperty Name="High" ColumnName="High" />
+          <ScalarProperty Name="Close" ColumnName="Close" />
+          <ScalarProperty Name="Volume" ColumnName="Volume" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="Period" ColumnName="Period" />
+          <ScalarProperty Name="Symbol" ColumnName="Symbol" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Quotes">
+      <EntityTypeMapping TypeName="IsTypeOf(Market.Quote)">
+        <MappingFragment StoreEntitySet="Quotes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Volume" ColumnName="Volume" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram Name="Model1" >
+        <EntityTypeShape EntityType="Market.Bar" Width="1.5" PointX="6.25" PointY="1.125" Height="2.7494921875" />
+        <EntityTypeShape EntityType="Market.Quote" Width="1.5" PointX="3.25" PointY="1.125" Height="1.787985026041667" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
