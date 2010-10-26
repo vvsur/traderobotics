@@ -24,18 +24,19 @@ namespace TradeRobotics.DataProviders
             // Symbol
             bar.Symbol = dataArray[0];
 
-            // Date
-            string dateString = dataArray[2];
-            int year = int.Parse(dateString.Substring(0, 4));
-            int month = int.Parse(dateString.Substring(4, 2));
-            int day = int.Parse(dateString.Substring(6, 2));
-            // Time
-            string timeString = dataArray[3];
-            int hour = int.Parse(timeString.Substring(0, 2));
-            int minute = int.Parse(timeString.Substring(2, 2));
-            int second = int.Parse(timeString.Substring(4, 2));
-            // Set time
-            bar.Time = new DateTime(year, month, day, hour, minute, second);
+            //// Date
+            //string dateString = dataArray[2];
+            //int year = int.Parse(dateString.Substring(0, 4));
+            //int month = int.Parse(dateString.Substring(4, 2));
+            //int day = int.Parse(dateString.Substring(6, 2));
+            //// Time
+            //string timeString = dataArray[3];
+            //int hour = int.Parse(timeString.Substring(0, 2));
+            //int minute = int.Parse(timeString.Substring(2, 2));
+            //int second = int.Parse(timeString.Substring(4, 2));
+            //// Set time
+            //bar.Time = new DateTime(year, month, day, hour, minute, second);
+            bar.Time = LoadDateTime(dataArray);
 
             // OHLCV
             string openString = dataArray[4];
@@ -51,6 +52,50 @@ namespace TradeRobotics.DataProviders
 
             return bar;
 
-        }    
+        }
+        /// <summary>
+        /// Get quote from line
+        /// </summary>
+        /// <param name="line"></param>
+        /// <returns></returns>
+        public static Quote LoadQuote(string data)
+        {
+            NumberFormatInfo numberFormatInfo = DataContext.NumberFormatInfo;
+            Quote quote = new Quote();
+
+
+            string[] dataArray = data.Split(DataContext.Delimiter);
+            // Symbol
+            //quote.Symbol = dataArray[0];
+
+            // Set time
+            quote.Time = LoadDateTime(dataArray);
+
+            // OHLCV
+            string priceString = dataArray[4];
+            quote.Price = double.Parse(priceString, numberFormatInfo);
+            string volumeString = dataArray[5];
+            quote.Volume = double.Parse(volumeString, numberFormatInfo);
+
+            return quote;
+
+        }
+
+        private static DateTime LoadDateTime(string[] dataArray)
+        {
+            // Date
+            string dateString = dataArray[2];
+            int year = int.Parse(dateString.Substring(0, 4));
+            int month = int.Parse(dateString.Substring(4, 2));
+            int day = int.Parse(dateString.Substring(6, 2));
+            // Time
+            string timeString = dataArray[3];
+            int hour = int.Parse(timeString.Substring(0, 2));
+            int minute = int.Parse(timeString.Substring(2, 2));
+            int second = int.Parse(timeString.Substring(4, 2));
+            // Set time
+            return new DateTime(year, month, day, hour, minute, second);
+
+        }
     }
 }

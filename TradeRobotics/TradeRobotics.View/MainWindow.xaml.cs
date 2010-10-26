@@ -59,6 +59,8 @@ namespace TradeRobotics.View
                 ds.DataPoints.Add(new DataPoint
                 {
                     AxisXLabel = bar.Time.ToString("yyyy-MM-dd HH:mm"),
+                    /*LabelText = "aaa",
+                    LabelEnabled = true,*/
                     //XValue = bar.Time, // a DateTime value
                     YValues = new double[] { bar.Open, bar.Close, bar.High, bar.Low } // a double value
                 });
