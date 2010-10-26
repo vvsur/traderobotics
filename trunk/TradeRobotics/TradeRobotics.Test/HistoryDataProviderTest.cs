@@ -115,5 +115,53 @@ namespace TradeRobotics.Test
             }
 
         }
+
+        /// <summary>
+        ///A test for LoadBars
+        ///</summary>
+        [TestMethod()]
+        public void LoadQuotesByDateTest()
+        {
+            try
+            {
+                HistoryDataProvider target = new HistoryDataProvider(); // TODO: Initialize to an appropriate value
+                string symbol = "sber"; // TODO: Initialize to an appropriate value
+                DateTime date = new DateTime(2009, 12, 1);
+
+                List<Quote> quotes;
+                quotes = target.LoadQuotes(symbol, date);
+                Assert.AreNotEqual(quotes, null);
+                Assert.AreNotEqual(quotes.Count, 0);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail(ex.ToString());
+            }
+
+        }
+
+
+        /// <summary>
+        ///A test for LoadQuotesFromFile
+        ///</summary>
+        [TestMethod()]
+        [DeploymentItem("TradeRobotics.DataProviders.History.dll")]
+        public void LoadQuotesFromFileTest()
+        {
+            try
+            {
+                HistoryDataProvider_Accessor target = new HistoryDataProvider_Accessor(); // TODO: Initialize to an appropriate value
+                string filePath = string.Concat(TradeRobotics.DataProviders.DataContext.DataDirectory, "sber_2009.12.01_quotes.csv");
+                var quotes = target.LoadQuotesFromFile(filePath);
+                Assert.AreNotEqual(quotes, null);
+                Assert.AreNotEqual(quotes.Count, 0);
+
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail(ex.ToString());
+            }
+
+        }
     }
 }
