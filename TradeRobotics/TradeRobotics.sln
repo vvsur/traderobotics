@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Solution Items\NDde.xml = Solution Items\NDde.xml
 		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
 		TradeRobotics.vsmdi = TradeRobotics.vsmdi
+		Solution Items\WPFToolkit.dll = Solution Items\WPFToolkit.dll
+		Solution Items\WPFVisifire.Charts.dll = Solution Items\WPFVisifire.Charts.dll
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradeRobotics.Model", "TradeRobotics.Model\TradeRobotics.Model.csproj", "{B2BFFE33-9F11-4E20-A829-74F664A98E70}"
