@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using TradeRobotics.Model;
+using System.Collections.Generic;
 
 namespace TradeRobotics.Test
 {
@@ -90,6 +91,29 @@ namespace TradeRobotics.Test
                 Assert.Fail(ex.ToString());
             }
             
+        }
+
+        /// <summary>
+        ///A test for LoadBars
+        ///</summary>
+        [TestMethod()]
+        public void LoadQuotesTest()
+        {
+            try
+            {
+                HistoryDataProvider target = new HistoryDataProvider(); // TODO: Initialize to an appropriate value
+                string symbol = "sber"; // TODO: Initialize to an appropriate value
+
+                List<Quote> quotes;
+                quotes = target.LoadQuotes(symbol);
+                Assert.AreNotEqual(quotes, null);
+                Assert.AreNotEqual(quotes.Count, 0);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail(ex.ToString());
+            }
+
         }
     }
 }

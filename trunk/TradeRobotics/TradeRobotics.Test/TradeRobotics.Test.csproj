@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\SBER_M5.csv" />
+    <None Include="Data\SBER_QUOTES.csv" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
