@@ -13,7 +13,7 @@ namespace TradeRobotics.DataProviders.History
     public class HistoryDataProvider
     {
         public const string historyFileName = @"{0}_M{1}.csv";
-        public const string quotesHistoryFileName = @"{0}_quotes.csv";
+        public const string quotesHistoryFileName = @"{0}_{1}_quotes.csv";
         
         /// <summary>
         /// Get bars from file
@@ -45,15 +45,49 @@ namespace TradeRobotics.DataProviders.History
             return bars;
         }
 
+
         /// <summary>
-        /// Get quotes from file
+        /// Load quotes for one day
+        /// </summary>
+        /// <param name="symbol"></param>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public List<Quote> LoadQuotes(string symbol, DateTime date)
+        {
+            string fileName = string.Format(quotesHistoryFileName, symbol, date.ToString("yyyy.MM.dd"));
+            string filePath = string.Concat(DataContext.DataDirectory, fileName);
+            return LoadQuotesFromFile(filePath);
+
+        }
+        
+        /// <summary>
+        /// Load all quotes for symbol
         /// </summary>
         /// <param name="symbol"></param>
         /// <returns></returns>
         public List<Quote> LoadQuotes(string symbol)
         {
-            string filePath = string.Format(quotesHistoryFileName, symbol);
-            filePath = string.Concat(DataContext.DataDirectory, filePath);
+            string searchPattern = string.Format(quotesHistoryFileName, symbol, "*");
+
+            string[] fileNames = Directory.GetFiles(DataContext.DataDirectory, searchPattern);
+            List<Quote> allQuotes = new List<Quote>();
+            foreach (string file in fileNames)
+            {
+                allQuotes.AddRange(LoadQuotesFromFile(file));
+            }
+            return allQuotes;
+        }
+        
+        /// <summary>
+        /// Get quotes from file
+        /// </summary>
+        /// <param name="symbol"></param>
+        /// <returns></returns>
+        protected List<Quote> LoadQuotesFromFile(string filePath)
+        {
+            /*string filePath = string.Format(quotesHistoryFileName, symbol);
+            filePath = string.Concat(DataContext.DataDirectory, filePath);*/
+            
             string[] lines = File.ReadAllLines(filePath);
             int i = 0;
             List<Quote> quotes = new List<Quote>();
