@@ -42,8 +42,8 @@ namespace TradeRobotics.View
             ds.MarkerEnabled = true;
             ds.MovingMarkerEnabled = true;
             ds.LightingEnabled = true;
-            //ds.LineThickness = 1.5;
-            ds.XValueType = ChartValueTypes.DateTime;
+            ds.LineThickness = 1.5;
+            //ds.XValueType = ChartValueTypes.DateTime;
             ds.LegendText = string.Concat(barCollection.Symbol, " ", barCollection.Period);
             ds.PriceUpColor = new SolidColorBrush(Colors.Green);
             ds.PriceDownColor = new SolidColorBrush(Colors.Red);
@@ -52,19 +52,21 @@ namespace TradeRobotics.View
             //PriceChart.AxesY[0].AxisMaximum = bars.Max(bar => bar.High);
             PriceChart.AxesY[0].StartFromZero = false;
             PriceChart.AxesY[0].ViewportRangeEnabled = true;
-
+            
             // Add points
             foreach (Bar bar in barCollection.Bars)
             {
                 ds.DataPoints.Add(new DataPoint
                 {
-                    XValue = bar.Time, // a DateTime value
+                    AxisXLabel = bar.Time.ToString("yyyy-MM-dd HH:mm"),
+                    //XValue = bar.Time, // a DateTime value
                     YValues = new double[] { bar.Open, bar.Close, bar.High, bar.Low } // a double value
                 });
 
             }
             
             PriceChart.Series.Add(ds);
+            PriceChart.ZoomingEnabled = true;
 
         }
 
