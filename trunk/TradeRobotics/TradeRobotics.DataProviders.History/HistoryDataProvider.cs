@@ -12,6 +12,8 @@ namespace TradeRobotics.DataProviders.History
     /// </summary>
     public class HistoryDataProvider
     {
+
+        #region Load data from file
         public const string historyFileName = @"{0}_M{1}.csv";
         public const string quotesHistoryFileName = @"{0}_{1}_quotes.csv";
         
@@ -104,6 +106,7 @@ namespace TradeRobotics.DataProviders.History
             return quotes;
 
         }
+        #endregion
 
     }
 }
