@@ -59,6 +59,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="DataSeriesListControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -66,6 +70,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataSeriesListControl.xaml.cs">
+      <DependentUpon>DataSeriesListControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -114,6 +121,10 @@
     <ProjectReference Include="..\TradeRobotics.Model\TradeRobotics.Model.csproj">
       <Project>{B2BFFE33-9F11-4E20-A829-74F664A98E70}</Project>
       <Name>TradeRobotics.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TradeRobotics.Robots\TradeRobotics.Robots.csproj">
+      <Project>{91430034-F25B-48FD-91CD-FD3AA3244204}</Project>
+      <Name>TradeRobotics.Robots</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
