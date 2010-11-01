@@ -4,17 +4,43 @@ using System.Linq;
 using System.Text;
 using TradeRobotics.Model;
 using System.IO;
+using TradeRobotics.TradeLibrary;
+using System.Text.RegularExpressions;
 
 namespace TradeRobotics.DataProviders.History
 {
     /// <summary>
     /// Provider historical data from file
     /// </summary>
-    public class HistoryDataProvider
+    public class HistoryDataProvider:IDataProvider
     {
 
         #region Load data from file
-        public const string historyFileName = @"{0}_M{1}.csv";
+        /// <summary>
+        /// 
+        /// </summary>
+        public Tuple<string, int, bool> GetDataFileInfo(string fileName)
+        {
+            Regex regex = new Regex(@"(?<name>\w+)_(?<periodName>[m,d])(?<periodValue>\d+)(?<quotes>_quotes)*\.csv$", RegexOptions.IgnoreCase);
+
+            Match match = regex.Match(fileName);
+            if(!match.Success)
+                return new Tuple<string, int, bool>(null,0,false);
+
+            string name = match.Groups["name"].Value;
+            string periodName = match.Groups["periodName"].Value;
+            int periodValue = Convert.ToInt32(match.Groups["periodValue"].Value);
+            if(periodName == "H") 
+                periodValue = 60*periodValue;
+            if(periodName == "D")
+                periodValue = 60*24*periodValue;
+            bool isQuotes = (match.Groups["quotes"].Value == "_quotes");
+
+            return new Tuple<string,int,bool>(name, periodValue, isQuotes);
+    
+        }
+        
+        //public const string historyFileName = @"{0}_M{1}.csv";
         public const string quotesHistoryFileName = @"{0}_{1}_quotes.csv";
         
         /// <summary>
@@ -22,18 +48,20 @@ namespace TradeRobotics.DataProviders.History
         /// </summary>
         /// <param name="symbol"></param>
         /// <param name="period"></param>
-        public BarCollection LoadBars(string symbol, int period)
+//        public BarCollection LoadBars(string symbol, int period)
+        public BarCollection LoadBars(string filePath)
         {
             // Load from file
-            string filePath = string.Format(historyFileName, symbol, period);
+            //string filePath = string.Format(historyFileName, symbol, period);
+            Tuple<string, int, bool> dataInfo = GetDataFileInfo(filePath);
             filePath = string.Concat(DataContext.DataDirectory, filePath);
-            
+
             string[] lines = File.ReadAllLines(filePath);
             int i = 0;
             // Init quik bar
             BarCollection bars = new BarCollection();
-            bars.Period = period;
-            bars.Symbol = symbol;
+            bars.Symbol = dataInfo.Item1;
+            bars.Period = dataInfo.Item2; ;
             // Add bars
             foreach (string line in lines)
             {
@@ -46,7 +74,6 @@ namespace TradeRobotics.DataProviders.History
             }
             return bars;
         }
-
 
         /// <summary>
         /// Load quotes for one day
@@ -108,5 +135,7 @@ namespace TradeRobotics.DataProviders.History
         }
         #endregion
 
+
+        public event EventHandler<TickEventArgs> Tick;
     }
 }
