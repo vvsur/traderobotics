@@ -13,6 +13,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Visifire.Charts;
 using TradeRobotics.Model;
+using System.IO;
+using System.Reflection;
+using TradeRobotics.TradeLibrary;
 
 namespace TradeRobotics.View
 {
@@ -24,13 +27,43 @@ namespace TradeRobotics.View
         public MainWindow()
         {
             InitializeComponent();
+            LoadRobots();
+            LoadDataSeries();
         }
 
-        private void LoadBarsButton_Click(object sender, RoutedEventArgs e)
+        #region Fill controls
+        private void LoadRobots()
         {
-            TradeRobotics.DataProviders.History.HistoryDataProvider provider = new DataProviders.History.HistoryDataProvider();
-            var barCollection = provider.LoadBars("Sber", 5);
-            LoadPriceChart(barCollection);
+            const string robotsDirectory = @".\Robots\";
+
+            // Get file names from data directory
+            string[] robotFiles = Directory.GetFiles(robotsDirectory, "*.dll", SearchOption.TopDirectoryOnly);
+            // Load list of all robot classes
+            List<Type> robotTypes = new List<Type>();
+            foreach (string robotFile in robotFiles)
+            {
+                Assembly assembly =  System.Reflection.Assembly.LoadFrom(robotFile);
+                Type[] types = assembly.GetExportedTypes();
+                var newRobotTypes = types.Where<Type>(type => type.GetInterface(typeof(IRobot).Name, false) != null);
+                robotTypes.AddRange(newRobotTypes);
+            }
+
+            RobotsComboBox.ItemsSource = robotTypes;
+
+        }
+
+        private void LoadDataSeries()
+        {
+            // Get file names from data directory
+            string[] dataFiles = Directory.GetFiles(TradeRobotics.DataProviders.DataContext.DataDirectory, "*.csv", SearchOption.TopDirectoryOnly);
+            List<string> fileNames = new List<string>();
+            foreach (string file in dataFiles)
+            {
+                string fileName = System.IO.Path.GetFileNameWithoutExtension(file);
+                fileNames.Add(fileName);
+            }
+            // Add to list
+            DataSeriesList.ItemsSource = fileNames;
         }
 
         private void LoadPriceChart(BarCollection barCollection)
@@ -71,10 +104,13 @@ namespace TradeRobotics.View
             PriceChart.ZoomingEnabled = true;
 
         }
+        #endregion
 
-        private void DataSeriesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void DataSeriesList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-             
+            TradeRobotics.DataProviders.History.HistoryDataProvider provider = new DataProviders.History.HistoryDataProvider();
+            var barCollection = provider.LoadBars(DataSeriesList.SelectedItem.ToString()+".csv");
+            LoadPriceChart(barCollection);
         }
     }
 }

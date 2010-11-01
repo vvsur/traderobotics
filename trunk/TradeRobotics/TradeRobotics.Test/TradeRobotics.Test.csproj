@@ -67,6 +67,10 @@
       <Project>{B2BFFE33-9F11-4E20-A829-74F664A98E70}</Project>
       <Name>TradeRobotics.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TradeRobotics.TradeLibrary\TradeRobotics.TradeLibrary.csproj">
+      <Project>{B611259D-894A-4859-9653-AA7E11EC84BC}</Project>
+      <Name>TradeRobotics.TradeLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\SBER_M5.csv" />

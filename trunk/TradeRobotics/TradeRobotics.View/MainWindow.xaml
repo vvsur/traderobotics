@@ -17,11 +17,25 @@
                    Theme="Theme1" x:Name="PriceChart" Margin="8,-0.333,1,8.333" Grid.Row="1" Grid.Column="1"/>
             <ToolBarPanel Margin="0,0,0,0.333" Grid.ColumnSpan="2">
             	<ToolBar IsOverflowOpen="True">
-            		<Button Content="Load Bars" Height="23" HorizontalAlignment="Left" x:Name="LoadBarsButton" VerticalAlignment="Top" Width="75" Click="LoadBarsButton_Click" />
-            		<ComboBox x:Name="RobotsComboBox" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Stretch" Width="120"/>
-            	</ToolBar>
+
+                <ComboBox x:Name="RobotsComboBox" 
+                          HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Stretch" Width="120"
+                          DisplayMemberPath="Name"
+                          >
+
+                </ComboBox>
+            </ToolBar>
             </ToolBarPanel>
-        <local:DataSeriesListControl x:Name="DataSeriesControl" Grid.Row="1" d:LayoutOverrides="Width" SelectionChanged="DataSeriesList_SelectionChanged"/>
+
+        <ListView x:Name="DataSeriesList" Grid.Row="1" MouseDoubleClick="DataSeriesList_MouseDoubleClick" >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="File" DisplayMemberBinding="{Binding}" Width="Auto"  >
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <!--<local:DataSeriesListControl x:Name="DataSeriesControl" Grid.Row="1" d:LayoutOverrides="Width" SelectionChanged="DataSeriesList_SelectionChanged"/>-->
       
     </Grid>
 </Window>

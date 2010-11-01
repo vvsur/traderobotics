@@ -11,7 +11,8 @@
     <RootNamespace>TradeRobotics.View</RootNamespace>
     <AssemblyName>TradeRobotics.View</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -61,10 +62,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="DataSeriesListControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -72,9 +69,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DataSeriesListControl.xaml.cs">
-      <DependentUpon>DataSeriesListControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -99,6 +93,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="Data\SBER_2009.12.01_QUOTES.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -124,9 +119,9 @@
       <Project>{B2BFFE33-9F11-4E20-A829-74F664A98E70}</Project>
       <Name>TradeRobotics.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TradeRobotics.Robots\TradeRobotics.Robots.csproj">
-      <Project>{91430034-F25B-48FD-91CD-FD3AA3244204}</Project>
-      <Name>TradeRobotics.Robots</Name>
+    <ProjectReference Include="..\TradeRobotics.TradeLibrary\TradeRobotics.TradeLibrary.csproj">
+      <Project>{B611259D-894A-4859-9653-AA7E11EC84BC}</Project>
+      <Name>TradeRobotics.TradeLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
