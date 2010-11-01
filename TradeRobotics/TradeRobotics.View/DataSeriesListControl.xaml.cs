@@ -42,8 +42,16 @@ namespace TradeRobotics.View
             }
             // Add to list
             DataSeriesList.ItemsSource = fileNames;
-
         }
 
+        private void DataSeriesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(SelectionChanged != null)
+                SelectionChanged(this, e);
+        }
+        /// <summary>
+        /// Selection changed event
+        /// </summary>
+        public event EventHandler<SelectionChangedEventArgs> SelectionChanged;
     }
 }
