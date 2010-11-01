@@ -72,10 +72,9 @@ namespace TradeRobotics.View
 
         }
 
-        private void DataSeriesList_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void DataSeriesList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-        	// TODO: Add event handler implementation here.
+             
         }
-
     }
 }

@@ -21,6 +21,7 @@
             		<ComboBox x:Name="RobotsComboBox" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Stretch" Width="120"/>
             	</ToolBar>
             </ToolBarPanel>
-    	<local:DataSeriesListControl Grid.Row="1" d:LayoutOverrides="Width"/>
+        <local:DataSeriesListControl x:Name="DataSeriesControl" Grid.Row="1" d:LayoutOverrides="Width" SelectionChanged="DataSeriesList_SelectionChanged"/>
+      
     </Grid>
 </Window>

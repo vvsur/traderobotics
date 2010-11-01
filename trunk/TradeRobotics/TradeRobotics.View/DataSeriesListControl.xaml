@@ -6,7 +6,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300" Loaded="UserControl_Loaded">
     <Grid>
-    	<ListView x:Name="DataSeriesList" Margin="0" MouseDoubleClick="DataSeriesList_MouseDoubleClick">
+    	<ListView x:Name="DataSeriesList" Margin="0" MouseDoubleClick="DataSeriesList_MouseDoubleClick" SelectionChanged="DataSeriesList_SelectionChanged">
     		<ListView.View>
     			<GridView>
                     <GridViewColumn Header="File" DisplayMemberBinding="{Binding}" Width="Auto"  >
