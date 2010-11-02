@@ -24,8 +24,8 @@ namespace TradeRobotics.View
     /// </summary>
     public partial class MainWindow : Window
     {
-        TradeRobotics.DataProviders.History.HistoryDataProvider DataProvider;
-        IRobot robot;
+        TradeRobotics.DataProviders.History.TestDataProvider DataProvider;
+        IRobot Robot;
 
         public MainWindow()
         {
@@ -117,15 +117,22 @@ namespace TradeRobotics.View
         
         private void DataSeriesList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            DataProvider = new DataProviders.History.HistoryDataProvider();
+            DataProvider = new DataProviders.History.TestDataProvider();
             var barCollection = DataProvider.LoadBars(DataSeriesList.SelectedItem.ToString()+".csv");
             LoadPriceChart(barCollection);
         }
 
         private void StartTestButton_Click(object sender, RoutedEventArgs e)
         {
-            IRobot robot = RobotsComboBox.SelectedItem as IRobot;
-            robot.DataProvider = DataProvider;
+            if (DataProvider == null
+                || RobotsComboBox.SelectedItem == null)
+                return;
+            
+            Type robotType = RobotsComboBox.SelectedItem as Type;
+            Robot = Activator.CreateInstance(robotType) as IRobot;
+
+            Robot.DataProvider = DataProvider;
+            DataProvider.BeginTest(Robot);
         }
     }
 }

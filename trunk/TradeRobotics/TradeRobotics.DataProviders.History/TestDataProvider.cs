@@ -7,7 +7,10 @@ using TradeRobotics.Model;
 
 namespace TradeRobotics.DataProviders.History
 {
-    public class TestDataProvider:HistoryDataProvider
+    /// <summary>
+    /// Robot test data provider
+    /// </summary>
+    public class TestDataProvider:HistoryDataProvider, IDataProvider
     {
         /// <summary>
         /// Testing robot
@@ -20,6 +23,8 @@ namespace TradeRobotics.DataProviders.History
             }
             set
             {
+                if (robot != null)
+                    robot.StateChanged -= OnRobotStateChanged;
                 robot = value;
                 if(robot != null)
                     robot.StateChanged += OnRobotStateChanged;
@@ -27,20 +32,37 @@ namespace TradeRobotics.DataProviders.History
         }
         private IRobot robot;
 
-        private DateTime tickTime;
+        private int barIndex = 0;
+        
+        
+        /// <summary>
+        /// When robot came to idle state
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void OnRobotStateChanged(object sender,  RobotStateChangedEventArgs e)
         {
-            
+            if (e.NewState == RobotState.Idle && barIndex < DataSeries.Count)
+                Tick(this, new TickEventArgs(DataSeries, barIndex++));
         }
 
-        public void BeginTest(StockDataSeries bars, IRobot robot)
+        /// <summary>
+        /// Start new test
+        /// </summary>
+        /// <param name="dataSeries"></param>
+        /// <param name="robot"></param>
+        public void BeginTest( IRobot robot)
         {
+            // Connect robot to provider
             robot.DataProvider = this;
             this.Robot = robot;
-            StockDataSeries ds;
-
+            // First tick
+            Tick(this, new TickEventArgs(DataSeries,barIndex++));
         }
-        
 
+        /// <summary>
+        /// New data tick
+        /// </summary>
+        public new event EventHandler<TickEventArgs> Tick;
     }
 }
