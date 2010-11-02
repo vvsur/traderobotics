@@ -70,6 +70,7 @@ namespace TradeRobotics.DataProviders.History
                     continue;
                 Bar bar = ConverterHelper.LoadBar(line);
 
+                dataSeries.Bars.Add(bar);
                 dataSeries.Times.Add(bar.Time);
                 dataSeries.Open.Add(bar.Open);
                 dataSeries.Low.Add(bar.Low);
