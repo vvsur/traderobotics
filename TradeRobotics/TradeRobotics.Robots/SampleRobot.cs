@@ -6,33 +6,28 @@ using TradeRobotics.TradeLibrary;
 
 namespace TradeRobotics.Robots
 {
-    public class SampleRobot:IRobot
+    /// <summary>
+    /// A simple robot
+    /// </summary>
+    public class SampleRobot: RobotBase
     {
-        public IDataProvider DataProvider
+        /// <summary>
+        /// New data tick processing
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        public override void OnTick(object sender, TickEventArgs args)
         {
-            get
+            State = RobotState.Processing;
+            for (int i = args.LastBarIndex; i > 0; i--)
             {
-                throw new NotImplementedException();
+                if (i % 10 == 0)
+                {
+                    // buy
+                }
+
             }
-            set
-            {
-                throw new NotImplementedException();
-            }
+            State = RobotState.Idle;
         }
-
-
-        public RobotState State
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public event EventHandler<RobotStateChangedEventArgs> StateChanged;
     }
 }

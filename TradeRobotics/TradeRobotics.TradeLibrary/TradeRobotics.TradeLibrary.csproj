@@ -72,6 +72,7 @@
     <Compile Include="IRobot.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RobotBase.cs" />
     <Compile Include="RobotState.cs" />
     <Compile Include="RobotStateChangedEventArgs.cs" />
     <Compile Include="SignalType.cs" />
@@ -94,6 +95,12 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TradeRobotics.Model\TradeRobotics.Model.csproj">
+      <Project>{B2BFFE33-9F11-4E20-A829-74F664A98E70}</Project>
+      <Name>TradeRobotics.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

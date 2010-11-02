@@ -14,6 +14,10 @@ namespace TradeRobotics.DataProviders.History
     /// </summary>
     public class HistoryDataProvider:IDataProvider
     {
+        /// <summary>
+        /// Data series
+        /// </summary>
+        public StockDataSeries DataSeries {get;set;}
 
         #region Load data from file
         /// <summary>
@@ -59,9 +63,9 @@ namespace TradeRobotics.DataProviders.History
             string[] lines = File.ReadAllLines(filePath);
             int i = 0;
             // Init quik bar
-            StockDataSeries dataSeries = new StockDataSeries();
-            dataSeries.Symbol = dataInfo.Item1;
-            dataSeries.Period = dataInfo.Item2; ;
+            DataSeries = new StockDataSeries();
+            DataSeries.Symbol = dataInfo.Item1;
+            DataSeries.Period = dataInfo.Item2; ;
             // Add bars
             foreach (string line in lines)
             {
@@ -70,16 +74,16 @@ namespace TradeRobotics.DataProviders.History
                     continue;
                 Bar bar = ConverterHelper.LoadBar(line);
 
-                dataSeries.Bars.Add(bar);
-                dataSeries.Times.Add(bar.Time);
-                dataSeries.Open.Add(bar.Open);
-                dataSeries.Low.Add(bar.Low);
-                dataSeries.High.Add(bar.High);
-                dataSeries.Close.Add(bar.Close);
-                dataSeries.Volume.Add(bar.Volume);
-
+                DataSeries.Bars.Add(bar);
+                DataSeries.Times.Add(bar.Time);
+                DataSeries.Open.Add(bar.Open);
+                DataSeries.Low.Add(bar.Low);
+                DataSeries.High.Add(bar.High);
+                DataSeries.Close.Add(bar.Close);
+                DataSeries.Volume.Add(bar.Volume);
             }
-            return dataSeries;
+            
+            return DataSeries;
         }
 
         /// <summary>
