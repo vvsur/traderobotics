@@ -27,7 +27,7 @@ namespace TradeRobotics.DataProviders.History
         }
         private IRobot robot;
 
-        private DateTime lastTickTime;
+        private DateTime tickTime;
         protected void OnRobotStateChanged(object sender,  RobotStateChangedEventArgs e)
         {
             
@@ -37,6 +37,8 @@ namespace TradeRobotics.DataProviders.History
         {
             robot.DataProvider = this;
             this.Robot = robot;
+            StockDataSeries ds;
+
         }
         
 

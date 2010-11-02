@@ -23,7 +23,7 @@ namespace TradeRobotics.Model
         /// <summary>
         /// Bars data
         /// </summary>
-        //        public List<Bar> Bars = new List<Bar>();
+        public List<Bar> Bars = new List<Bar>();
         #region price data
         public List<DateTime> Times = new List<DateTime>();
         public List<double> Open = new List<double>();
@@ -37,7 +37,7 @@ namespace TradeRobotics.Model
         /// </summary>
         public int Count
         {
-           get{ return Times.Count;}
+           get{ return Bars.Count;}
         }
 
         #endregion

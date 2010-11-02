@@ -69,6 +69,10 @@ namespace TradeRobotics.View
             DataSeriesList.ItemsSource = fileNames;
         }
 
+        /// <summary>
+        /// Main chart
+        /// </summary>
+        /// <param name="dataSeries"></param>
         private void LoadPriceChart(TradeRobotics.Model.StockDataSeries dataSeries)
         {
 
@@ -90,31 +94,19 @@ namespace TradeRobotics.View
             PriceChart.AxesY[0].ViewportRangeEnabled = true;
             
             // Add points
-            for (int i = 0; i < dataSeries.Count; i++)
+            //for (int i = 0; i < dataSeries.Count; i++)
+            foreach(Bar bar in dataSeries.Bars)
             {
                 ds.DataPoints.Add(new DataPoint
                 {
-                    AxisXLabel = dataSeries.Times[i].ToString("yyyy-MM-dd HH:mm"),
+                    AxisXLabel = bar.Time.ToString("yyyy-MM-dd HH:mm"),
                     /*LabelText = "aaa",
                     LabelEnabled = true,*/
                     //XValue = bar.Time, // a DateTime value
-                    YValues = new double[] { dataSeries.Open[i], 
-                        dataSeries.Close[i], dataSeries.High[i], dataSeries.Low[i] } // a double value
+                    YValues = new double[] { bar.Open, bar.Close, bar.High, bar.Low}
+                        //dataSeries.Close[i], dataSeries.High[i], dataSeries.Low[i] } // a double value
                 });                
             }
-
-            //foreach (Bar bar in dataSeries.Bars)
-            //{
-            //    ds.DataPoints.Add(new DataPoint
-            //    {
-            //        AxisXLabel = bar.Time.ToString("yyyy-MM-dd HH:mm"),
-            //        /*LabelText = "aaa",
-            //        LabelEnabled = true,*/
-            //        //XValue = bar.Time, // a DateTime value
-            //        YValues = new double[] { bar.Open, bar.Close, bar.High, bar.Low } // a double value
-            //    });
-
-            //}
             
             PriceChart.Series.Add(ds);
             PriceChart.ZoomingEnabled = true;
