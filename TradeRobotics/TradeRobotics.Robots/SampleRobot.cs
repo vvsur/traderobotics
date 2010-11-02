@@ -19,5 +19,20 @@ namespace TradeRobotics.Robots
                 throw new NotImplementedException();
             }
         }
+
+
+        public RobotState State
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public event EventHandler<RobotStateChangedEventArgs> StateChanged;
     }
 }

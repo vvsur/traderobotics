@@ -43,7 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BarCollection.cs" />
+    <Compile Include="StockDataSeries.cs" />
     <Compile Include="Market.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

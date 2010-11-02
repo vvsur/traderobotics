@@ -49,7 +49,7 @@ namespace TradeRobotics.DataProviders.History
         /// <param name="symbol"></param>
         /// <param name="period"></param>
 //        public BarCollection LoadBars(string symbol, int period)
-        public BarCollection LoadBars(string filePath)
+        public StockDataSeries LoadBars(string filePath)
         {
             // Load from file
             //string filePath = string.Format(historyFileName, symbol, period);
@@ -59,9 +59,9 @@ namespace TradeRobotics.DataProviders.History
             string[] lines = File.ReadAllLines(filePath);
             int i = 0;
             // Init quik bar
-            BarCollection bars = new BarCollection();
-            bars.Symbol = dataInfo.Item1;
-            bars.Period = dataInfo.Item2; ;
+            StockDataSeries dataSeries = new StockDataSeries();
+            dataSeries.Symbol = dataInfo.Item1;
+            dataSeries.Period = dataInfo.Item2; ;
             // Add bars
             foreach (string line in lines)
             {
@@ -69,10 +69,16 @@ namespace TradeRobotics.DataProviders.History
                 if (i++ == 0)
                     continue;
                 Bar bar = ConverterHelper.LoadBar(line);
-                bars.Bars.Add(bar);
+
+                dataSeries.Times.Add(bar.Time);
+                dataSeries.Open.Add(bar.Open);
+                dataSeries.Low.Add(bar.Low);
+                dataSeries.High.Add(bar.High);
+                dataSeries.Close.Add(bar.Close);
+                dataSeries.Volume.Add(bar.Volume);
 
             }
-            return bars;
+            return dataSeries;
         }
 
         /// <summary>
@@ -135,7 +141,9 @@ namespace TradeRobotics.DataProviders.History
         }
         #endregion
 
-
+        /// <summary>
+        /// New history data
+        /// </summary>
         public event EventHandler<TickEventArgs> Tick;
     }
 }

@@ -6,13 +6,11 @@ using System.Text;
 namespace TradeRobotics.TradeLibrary
 {
     /// <summary>
-    /// New tick event
+    /// Robot state
     /// </summary>
-    public class TickEventArgs:EventArgs
+    public enum RobotState
     {
-        /// <summary>
-        /// Time of last data
-        /// </summary>
-        public DateTime TickTime { get; set; }
+        Idle,
+        Processing
     }
 }
