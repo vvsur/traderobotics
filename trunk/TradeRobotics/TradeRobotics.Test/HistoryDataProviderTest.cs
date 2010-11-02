@@ -76,12 +76,12 @@ namespace TradeRobotics.Test
             {
                 HistoryDataProvider target = new HistoryDataProvider(); // TODO: Initialize to an appropriate value
 
-                BarCollection bars;
-                bars = target.LoadBars(@"sber_m5.csv");
-                Assert.AreNotEqual(bars, null);
-                Assert.AreNotEqual(bars.Bars.Count, 0);
-                Assert.AreEqual(bars.Symbol, "sber");
-                Assert.AreEqual(bars.Period, 5);
+                StockDataSeries dataSeries;
+                dataSeries = target.LoadBars(@"sber_m5.csv");
+                Assert.AreNotEqual(dataSeries, null);
+                Assert.AreNotEqual(dataSeries.Count, 0);
+                Assert.AreEqual(dataSeries.Symbol, "sber");
+                Assert.AreEqual(dataSeries.Period, 5);
             }
             catch (Exception ex)
             {

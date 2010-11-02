@@ -72,6 +72,8 @@
     <Compile Include="IRobot.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RobotState.cs" />
+    <Compile Include="RobotStateChangedEventArgs.cs" />
     <Compile Include="SignalType.cs" />
     <Compile Include="TickEventArgs.cs" />
     <Compile Include="TrendType.cs" />

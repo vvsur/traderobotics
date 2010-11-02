@@ -17,13 +17,13 @@
                    Theme="Theme1" x:Name="PriceChart" Margin="8,-0.333,1,8.333" Grid.Row="1" Grid.Column="1"/>
             <ToolBarPanel Margin="0,0,0,0.333" Grid.ColumnSpan="2">
             	<ToolBar IsOverflowOpen="True">
-
                 <ComboBox x:Name="RobotsComboBox" 
-                          HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Stretch" Width="120"
+                          HorizontalAlignment="Left" Margin="0" VerticalAlignment="Stretch" Width="120"
                           DisplayMemberPath="Name"
                           >
 
                 </ComboBox>
+                <Button x:Name="TestRobotButton" Content="Test Robot" HorizontalAlignment="Stretch" Margin="0,0,0,5.496" Width="75" d:LayoutOverrides="Height" VerticalAlignment="Stretch"/>
             </ToolBar>
             </ToolBarPanel>
 

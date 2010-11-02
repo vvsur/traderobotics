@@ -24,6 +24,9 @@ namespace TradeRobotics.View
     /// </summary>
     public partial class MainWindow : Window
     {
+        TradeRobotics.DataProviders.History.HistoryDataProvider DataProvider;
+        IRobot robot;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -66,18 +69,18 @@ namespace TradeRobotics.View
             DataSeriesList.ItemsSource = fileNames;
         }
 
-        private void LoadPriceChart(BarCollection barCollection)
+        private void LoadPriceChart(TradeRobotics.Model.StockDataSeries dataSeries)
         {
 
-            List<Bar> bars = barCollection.Bars;
-            DataSeries ds = new DataSeries();
+            //List<Bar> bars = dataSeries.Bars;
+            Visifire.Charts.DataSeries ds = new DataSeries();
             ds.RenderAs = RenderAs.CandleStick;
             ds.MarkerEnabled = true;
             ds.MovingMarkerEnabled = true;
             ds.LightingEnabled = true;
             ds.LineThickness = 1.5;
             //ds.XValueType = ChartValueTypes.DateTime;
-            ds.LegendText = string.Concat(barCollection.Symbol, " ", barCollection.Period);
+            ds.LegendText = string.Concat(dataSeries.Symbol, " ", dataSeries.Period);
             ds.PriceUpColor = new SolidColorBrush(Colors.Green);
             ds.PriceDownColor = new SolidColorBrush(Colors.Red);
             
@@ -87,18 +90,31 @@ namespace TradeRobotics.View
             PriceChart.AxesY[0].ViewportRangeEnabled = true;
             
             // Add points
-            foreach (Bar bar in barCollection.Bars)
+            for (int i = 0; i < dataSeries.Count; i++)
             {
                 ds.DataPoints.Add(new DataPoint
                 {
-                    AxisXLabel = bar.Time.ToString("yyyy-MM-dd HH:mm"),
+                    AxisXLabel = dataSeries.Times[i].ToString("yyyy-MM-dd HH:mm"),
                     /*LabelText = "aaa",
                     LabelEnabled = true,*/
                     //XValue = bar.Time, // a DateTime value
-                    YValues = new double[] { bar.Open, bar.Close, bar.High, bar.Low } // a double value
-                });
-
+                    YValues = new double[] { dataSeries.Open[i], 
+                        dataSeries.Close[i], dataSeries.High[i], dataSeries.Low[i] } // a double value
+                });                
             }
+
+            //foreach (Bar bar in dataSeries.Bars)
+            //{
+            //    ds.DataPoints.Add(new DataPoint
+            //    {
+            //        AxisXLabel = bar.Time.ToString("yyyy-MM-dd HH:mm"),
+            //        /*LabelText = "aaa",
+            //        LabelEnabled = true,*/
+            //        //XValue = bar.Time, // a DateTime value
+            //        YValues = new double[] { bar.Open, bar.Close, bar.High, bar.Low } // a double value
+            //    });
+
+            //}
             
             PriceChart.Series.Add(ds);
             PriceChart.ZoomingEnabled = true;
@@ -106,11 +122,18 @@ namespace TradeRobotics.View
         }
         #endregion
 
+        
         private void DataSeriesList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            TradeRobotics.DataProviders.History.HistoryDataProvider provider = new DataProviders.History.HistoryDataProvider();
-            var barCollection = provider.LoadBars(DataSeriesList.SelectedItem.ToString()+".csv");
+            DataProvider = new DataProviders.History.HistoryDataProvider();
+            var barCollection = DataProvider.LoadBars(DataSeriesList.SelectedItem.ToString()+".csv");
             LoadPriceChart(barCollection);
+        }
+
+        private void StartTestButton_Click(object sender, RoutedEventArgs e)
+        {
+            IRobot robot = RobotsComboBox.SelectedItem as IRobot;
+            robot.DataProvider = DataProvider;
         }
     }
 }
