@@ -73,6 +73,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RobotBase.cs" />
     <Compile Include="RobotStateChangedEventArgs.cs" />
+    <Compile Include="TestContext.cs" />
     <Compile Include="TickEventArgs.cs" />
   </ItemGroup>
   <ItemGroup>

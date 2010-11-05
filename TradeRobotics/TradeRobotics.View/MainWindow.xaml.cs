@@ -24,7 +24,7 @@ namespace TradeRobotics.View
     /// </summary>
     public partial class MainWindow : Window
     {
-        TradeRobotics.DataProviders.History.TestDataProvider DataProvider;
+        TradeRobotics.DataProviders.TestDataProvider DataProvider;
         IRobot Robot;
 
         public MainWindow()
@@ -117,7 +117,7 @@ namespace TradeRobotics.View
         
         private void DataSeriesList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            DataProvider = new DataProviders.History.TestDataProvider();
+            DataProvider = new DataProviders.TestDataProvider();
             var barCollection = DataProvider.LoadBars(DataSeriesList.SelectedItem.ToString()+".csv");
             LoadPriceChart(barCollection);
         }

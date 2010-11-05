@@ -107,10 +107,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TradeRobotics.DataProviders.History\TradeRobotics.DataProviders.History.csproj">
-      <Project>{8F82B6D2-2907-4E01-B2AC-8071F7DF96B6}</Project>
-      <Name>TradeRobotics.DataProviders.History</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TradeRobotics.DataProviders\TradeRobotics.DataProviders.csproj">
       <Project>{80B1AB4C-209A-4D14-BD9C-E89F8912445C}</Project>
       <Name>TradeRobotics.DataProviders</Name>
