@@ -10,6 +10,9 @@ namespace TradeRobotics.Model
     /// </summary>
     public class Order
     {
+        public DateTime Time;
+
+        
         public OrderType OrderType;
 
         public string Symbol;
