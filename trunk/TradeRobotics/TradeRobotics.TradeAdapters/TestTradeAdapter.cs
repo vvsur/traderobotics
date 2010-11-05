@@ -6,13 +6,16 @@ using TradeRobotics.TradeAdapters;
 using TradeRobotics.TradeLibrary;
 using TradeRobotics.Model;
 
-namespace TradeRobotics.TradeAdapters.Test
+namespace TradeRobotics.TradeAdapters
 {
     /// <summary>
     /// Trade adapter for robot testing
     /// </summary>
-    public class TestTradeAdapter
+    public class TestTradeAdapter : ITradeAdapter
     {
+        /// <summary>
+        /// Emulated orders
+        /// </summary>
         public List<Order> Orders = new List<Order>();
 
         #region Buy or sell orders

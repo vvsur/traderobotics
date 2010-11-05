@@ -115,6 +115,10 @@
       <Project>{B2BFFE33-9F11-4E20-A829-74F664A98E70}</Project>
       <Name>TradeRobotics.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TradeRobotics.TradeAdapters\TradeRobotics.TradeAdapters.csproj">
+      <Project>{0699348C-34FE-425F-BB69-62841F9F3A31}</Project>
+      <Name>TradeRobotics.TradeAdapters</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TradeRobotics.TradeLibrary\TradeRobotics.TradeLibrary.csproj">
       <Project>{B611259D-894A-4859-9653-AA7E11EC84BC}</Project>
       <Name>TradeRobotics.TradeLibrary</Name>
