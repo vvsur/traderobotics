@@ -16,6 +16,8 @@ namespace TradeRobotics.TradeLibrary
         /// </summary>
         IDataProvider DataProvider {get;set;}
 
+        ITradeAdapter TradeAdapter { get; set; }
+
         /// <summary>
         /// Robot state idle or processing
         /// </summary>

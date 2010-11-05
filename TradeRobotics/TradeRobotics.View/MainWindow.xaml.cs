@@ -16,6 +16,7 @@ using TradeRobotics.Model;
 using System.IO;
 using System.Reflection;
 using TradeRobotics.TradeLibrary;
+using TradeRobotics.TradeAdapters;
 
 namespace TradeRobotics.View
 {
@@ -25,6 +26,7 @@ namespace TradeRobotics.View
     public partial class MainWindow : Window
     {
         TradeRobotics.DataProviders.TestDataProvider DataProvider;
+        
         IRobot Robot;
 
         public MainWindow()
@@ -117,9 +119,14 @@ namespace TradeRobotics.View
         
         private void DataSeriesList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            if (DataProvider != null)
+            {
+                DataProvider.Tick -= this.OnTestTick;
+            }
             DataProvider = new DataProviders.TestDataProvider();
             var barCollection = DataProvider.LoadBars(DataSeriesList.SelectedItem.ToString()+".csv");
             LoadPriceChart(barCollection);
+            DataProvider.Tick += OnTestTick;
         }
 
         private void StartTestButton_Click(object sender, RoutedEventArgs e)
@@ -128,12 +135,12 @@ namespace TradeRobotics.View
                 || RobotsComboBox.SelectedItem == null)
                 return;
             
+            // Create robot
             Type robotType = RobotsComboBox.SelectedItem as Type;
             Robot = Activator.CreateInstance(robotType) as IRobot;
-
-
-            DataProvider.Tick += OnTestTick;
-
+            Robot.TradeAdapter = new TestTradeAdapter();
+            
+            //DataProvider.Tick += OnTestTick;
             TestProgress.Value = 1;            
             DataProvider.BeginTest(Robot);
         }

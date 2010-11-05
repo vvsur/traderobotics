@@ -51,6 +51,11 @@ namespace TradeRobotics.TradeLibrary
         #endregion
 
         /// <summary>
+        /// Robot trade adapter
+        /// </summary>
+        public ITradeAdapter TradeAdapter { get; set; }
+        
+        /// <summary>
         /// New data tick processing
         /// </summary>
         /// <param name="sender"></param>
