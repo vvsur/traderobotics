@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace TradeRobotics.TradeLibrary
+namespace TradeRobotics.Model
 {
     /// <summary>
-    /// Type of the signal
+    /// Robot state
     /// </summary>
-    public enum SignalType
+    public enum RobotState
     {
-        None,
-        Buy,
-        Sell
+        Idle,
+        Processing
     }
 }

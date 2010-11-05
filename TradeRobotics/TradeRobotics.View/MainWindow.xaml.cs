@@ -131,8 +131,15 @@ namespace TradeRobotics.View
             Type robotType = RobotsComboBox.SelectedItem as Type;
             Robot = Activator.CreateInstance(robotType) as IRobot;
 
-            Robot.DataProvider = DataProvider;
+
+            DataProvider.Tick += OnTestTick;
+
+            TestProgress.Value = 1;            
             DataProvider.BeginTest(Robot);
+        }
+        private void OnTestTick(object sender, TickEventArgs e)
+        {
+            TestProgress.Value = (Convert.ToDouble(e.LastBarIndex) / Convert.ToDouble(DataProvider.DataSeries.Count)) * 100.0;
         }
     }
 }

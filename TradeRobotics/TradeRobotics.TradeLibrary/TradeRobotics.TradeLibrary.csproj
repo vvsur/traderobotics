@@ -70,14 +70,10 @@
   <ItemGroup>
     <Compile Include="IDataProvider.cs" />
     <Compile Include="IRobot.cs" />
-    <Compile Include="Order.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RobotBase.cs" />
-    <Compile Include="RobotState.cs" />
     <Compile Include="RobotStateChangedEventArgs.cs" />
-    <Compile Include="SignalType.cs" />
     <Compile Include="TickEventArgs.cs" />
-    <Compile Include="TrendType.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

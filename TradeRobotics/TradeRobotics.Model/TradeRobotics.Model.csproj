@@ -43,25 +43,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bar.cs" />
+    <Compile Include="Order.cs" />
+    <Compile Include="Quote.cs" />
+    <Compile Include="RobotState.cs" />
+    <Compile Include="SignalType.cs" />
     <Compile Include="StockDataSeries.cs" />
-    <Compile Include="Market.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Market.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EntityDeploy Include="Market.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Market.Designer.cs</LastGenOutput>
-    </EntityDeploy>
+    <Compile Include="TrendType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Market.edmx.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

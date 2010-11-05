@@ -22,7 +22,7 @@ namespace TradeRobotics.DataProviders
 
             string[] dataArray = data.Split(DataContext.Delimiter);
             // Symbol
-            bar.Symbol = dataArray[0];
+            //bar.Symbol = dataArray[0];
 
             //// Date
             //string dateString = dataArray[2];

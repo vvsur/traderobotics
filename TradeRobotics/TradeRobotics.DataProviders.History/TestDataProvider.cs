@@ -23,11 +23,11 @@ namespace TradeRobotics.DataProviders.History
             }
             set
             {
-                if (robot != null)
-                    robot.StateChanged -= OnRobotStateChanged;
-                robot = value;
-                if(robot != null)
-                    robot.StateChanged += OnRobotStateChanged;
+                    if (robot != null)
+                        robot.StateChanged -= OnRobotStateChanged;
+                    robot = value;
+                    if (robot != null)
+                        robot.StateChanged += OnRobotStateChanged;
             }
         }
         private IRobot robot;
@@ -56,10 +56,19 @@ namespace TradeRobotics.DataProviders.History
             // Connect robot to provider
             robot.DataProvider = this;
             this.Robot = robot;
+            barIndex = 0;
             // First tick
             Tick(this, new TickEventArgs(DataSeries,barIndex++));
         }
 
+        /// <summary>
+        /// Stop test, disconnect from robot
+        /// </summary>
+        public void StopTest()
+        {
+            this.Robot = null;
+
+        }
         /// <summary>
         /// New data tick
         /// </summary>
