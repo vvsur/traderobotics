@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Bar.cs" />
     <Compile Include="Order.cs" />
+    <Compile Include="OrderType.cs" />
     <Compile Include="Quote.cs" />
     <Compile Include="RobotState.cs" />
     <Compile Include="SignalType.cs" />
