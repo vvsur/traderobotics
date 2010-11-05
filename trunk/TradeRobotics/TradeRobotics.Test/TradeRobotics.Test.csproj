@@ -75,7 +75,7 @@
   <ItemGroup>
     <None Include="Data\SBER_M5.csv" />
     <None Include="Data\SBER_2009.12.01_QUOTES.csv" />
-    <Shadow Include="Test References\TradeRobotics.DataProviders.History.accessor" />
+    <Shadow Include="Test References\TradeRobotics.DataProviders.accessor" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
