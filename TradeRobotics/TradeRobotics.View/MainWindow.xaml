@@ -13,8 +13,9 @@
     		<RowDefinition Height="0.675*"/>
     		<RowDefinition Height="0.237*"/>
     	</Grid.RowDefinitions>
-        <vc:Chart xmlns:vc="clr-namespace:Visifire.Charts;assembly=WPFVisifire.Charts" 
-                   Theme="Theme1" x:Name="PriceChart" Margin="8,-0.333,1,8.333" Grid.Row="1" Grid.Column="1"/>
+        <local:PriceChartControl x:Name="PriceChart"  Margin="8,-0.333,1,8.333" Grid.Row="1" Grid.Column="1"/>
+        <!--<vc:Chart xmlns:vc="clr-namespace:Visifire.Charts;assembly=WPFVisifire.Charts" 
+                   Theme="Theme1" x:Name="PriceChart" Margin="8,-0.333,1,8.333" Grid.Row="1" Grid.Column="1"/>-->
             <ToolBarPanel Margin="0,0,0,0.333" Grid.ColumnSpan="2">
             	<ToolBar IsOverflowOpen="True">
                 <ComboBox x:Name="RobotsComboBox" 
