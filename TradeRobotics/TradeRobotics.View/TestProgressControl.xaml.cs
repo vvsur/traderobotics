@@ -24,6 +24,9 @@ namespace TradeRobotics.View
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Progress bar value
+        /// </summary>
         public double Value
         {
             get

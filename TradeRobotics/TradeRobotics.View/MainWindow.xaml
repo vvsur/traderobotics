@@ -2,18 +2,17 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:TradeRobotics.View" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="TradeRobotics.View.MainWindow"
-        Title="MainWindow" Height="350" Width="525" SizeToContent="Manual">
+        Title="MainWindow" Height="480" Width="640" SizeToContent="Manual">
     <Grid>
     	<Grid.ColumnDefinitions>
-    		<ColumnDefinition Width="200"/>
-    		<ColumnDefinition Width="*"/>
+    		<ColumnDefinition Width="129"/>
+    		<ColumnDefinition/>
     	</Grid.ColumnDefinitions>
     	<Grid.RowDefinitions>
     		<RowDefinition Height="0.088*"/>
     		<RowDefinition Height="0.675*"/>
     		<RowDefinition Height="0.237*"/>
     	</Grid.RowDefinitions>
-        <local:PriceChartControl x:Name="PriceChart"  Margin="8,-0.333,1,8.333" Grid.Row="1" Grid.Column="1"/>
         <!--<vc:Chart xmlns:vc="clr-namespace:Visifire.Charts;assembly=WPFVisifire.Charts" 
                    Theme="Theme1" x:Name="PriceChart" Margin="8,-0.333,1,8.333" Grid.Row="1" Grid.Column="1"/>-->
             <ToolBarPanel Margin="0,0,0,0.333" Grid.ColumnSpan="2">
@@ -36,9 +35,19 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <local:TestProgressControl x:Name="TestProgress" Height="50"  VerticalAlignment="Top" Grid.Column="1" Margin="8,23.943,8,0" Grid.Row="2"/>
-
-        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="14.61" Margin="8,5.333,0,0" Grid.Row="2" TextWrapping="Wrap" Text="test" VerticalAlignment="Top" Width="26"/>
+        <GridSplitter x:Name="SplitterVertical" HorizontalAlignment="Left" Margin="0" Grid.Row="1" Grid.Column="1" Width="5"/>
+        <local:PriceChartControl x:Name="PriceChart"  Margin="8,-0.333,1,8.333" Grid.Row="1" Grid.Column="1"/>
+        <GridSplitter x:Name="SplitterHorizontal" HorizontalAlignment="Stretch" Height="5" Margin="0" Grid.Row="2" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <TabControl Margin="0" Grid.Row="2" Grid.ColumnSpan="2">
+        	<TabItem x:Name="TestTab" Header="Test">
+        		<Grid Background="#FFE5E5E5">
+        			<local:TestProgressControl x:Name="TestProgress" Margin="0"/>
+        		</Grid>
+        	</TabItem>
+        	<TabItem x:Name="OrdersTab" Header="Orders">
+        		<local:OrdersControl Width="640"/>
+        	</TabItem>
+        </TabControl>
         <!--<local:DataSeriesListControl x:Name="DataSeriesControl" Grid.Row="1" d:LayoutOverrides="Width" SelectionChanged="DataSeriesList_SelectionChanged"/>-->
       
     </Grid>

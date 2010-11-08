@@ -26,7 +26,7 @@ namespace TradeRobotics.View
             InitializeComponent();
         }
         /// <summary>
-        /// Main chart
+        /// Show chart with data series
         /// </summary>
         /// <param name="dataSeries"></param>
         public void LoadPriceChart(TradeRobotics.Model.StockDataSeries dataSeries)
