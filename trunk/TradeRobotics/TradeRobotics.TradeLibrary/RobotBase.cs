@@ -43,7 +43,8 @@ namespace TradeRobotics.TradeLibrary
             set
             {
                 state = value;
-                StateChanged(this, new RobotStateChangedEventArgs(state));
+                if(StateChanged != null)
+                    StateChanged(this, new RobotStateChangedEventArgs(state));
             }
         }
         private RobotState state;

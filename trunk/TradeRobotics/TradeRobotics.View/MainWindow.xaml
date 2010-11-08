@@ -36,7 +36,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <ProgressBar x:Name="TestProgress" Height="10" VerticalAlignment="Top" Grid.Column="1" Margin="8,23.943,8,0" Grid.Row="2"/>
+        <local:TestProgressControl x:Name="TestProgress" Height="50"  VerticalAlignment="Top" Grid.Column="1" Margin="8,23.943,8,0" Grid.Row="2"/>
 
         <TextBlock Grid.Column="1" HorizontalAlignment="Left" Height="14.61" Margin="8,5.333,0,0" Grid.Row="2" TextWrapping="Wrap" Text="test" VerticalAlignment="Top" Width="26"/>
         <!--<local:DataSeriesListControl x:Name="DataSeriesControl" Grid.Row="1" d:LayoutOverrides="Width" SelectionChanged="DataSeriesList_SelectionChanged"/>-->
