@@ -71,49 +71,6 @@ namespace TradeRobotics.View
             DataSeriesList.ItemsSource = fileNames;
         }
 
-        /// <summary>
-        /// Main chart
-        /// </summary>
-        /// <param name="dataSeries"></param>
-        //private void LoadPriceChart(TradeRobotics.Model.StockDataSeries dataSeries)
-        //{
-
-        //    //List<Bar> bars = dataSeries.Bars;
-        //    Visifire.Charts.DataSeries ds = new DataSeries();
-        //    ds.RenderAs = RenderAs.CandleStick;
-        //    ds.MarkerEnabled = true;
-        //    ds.MovingMarkerEnabled = true;
-        //    ds.LightingEnabled = true;
-        //    ds.LineThickness = 1.5;
-        //    //ds.XValueType = ChartValueTypes.DateTime;
-        //    ds.LegendText = string.Concat(dataSeries.Symbol, " ", dataSeries.Period);
-        //    ds.PriceUpColor = new SolidColorBrush(Colors.Green);
-        //    ds.PriceDownColor = new SolidColorBrush(Colors.Red);
-            
-        //    //PriceChart.AxesY[0].AxisMinimum = bars.Min(bar => bar.Low);
-        //    //PriceChart.AxesY[0].AxisMaximum = bars.Max(bar => bar.High);
-        //    PriceChart.AxesY[0].StartFromZero = false;
-        //    PriceChart.AxesY[0].ViewportRangeEnabled = true;
-            
-        //    // Add points
-        //    //for (int i = 0; i < dataSeries.Count; i++)
-        //    foreach(Bar bar in dataSeries.Bars)
-        //    {
-        //        ds.DataPoints.Add(new DataPoint
-        //        {
-        //            AxisXLabel = bar.Time.ToString("yyyy-MM-dd HH:mm"),
-        //            /*LabelText = "aaa",
-        //            LabelEnabled = true,*/
-        //            //XValue = bar.Time, // a DateTime value
-        //            YValues = new double[] { bar.Open, bar.Close, bar.High, bar.Low}
-        //                //dataSeries.Close[i], dataSeries.High[i], dataSeries.Low[i] } // a double value
-        //        });                
-        //    }
-            
-        //    PriceChart.Series.Add(ds);
-        //    PriceChart.ZoomingEnabled = true;
-
-        //}
         #endregion
 
         
