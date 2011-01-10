@@ -6,6 +6,9 @@ using TradeRobotics.Model;
 using System.IO;
 using TradeRobotics.TradeLibrary;
 using System.Text.RegularExpressions;
+using System.Xml.Serialization;
+using TradeRobotics.Model.Depth;
+
 
 namespace TradeRobotics.DataProviders
 {
@@ -19,9 +22,9 @@ namespace TradeRobotics.DataProviders
         /// </summary>
         public StockDataSeries DataSeries {get;set;}
 
-        #region Load data from file
+
         /// <summary>
-        /// 
+        /// Get info from string
         /// </summary>
         public Tuple<string, int, bool> GetDataFileInfo(string fileName)
         {
@@ -46,13 +49,38 @@ namespace TradeRobotics.DataProviders
         
         //public const string historyFileName = @"{0}_M{1}.csv";
         public const string quotesHistoryFileName = @"{0}_{1}_quotes.csv";
-        
+        private static string depthHistoryFileName = @"Depth\{0}\{1}.xml";
+        private const string depthHistorySymbolDir = @"Depth\{0}";
+
+        /// <summary>
+        /// Load history data from file
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        public StockDataSeries LoadFromFile(string filePath)
+        {
+            StockDataSeries result = new StockDataSeries();
+            var dataFileInfo = GetDataFileInfo(filePath);
+            bool isQuotes = dataFileInfo.Item3;
+            // Load as bars
+            if (!isQuotes)
+            {
+                result = LoadBars(filePath);
+            }
+            // Load as quotes
+            else
+            {
+                this.DataSeries.Quotes = LoadQuotesFromFile(filePath);
+                LoadDepth(this.DataSeries.Quotes.Last().Time);
+            }
+            return DataSeries;
+        }
+
         /// <summary>
         /// Get bars from file
         /// </summary>
         /// <param name="symbol"></param>
         /// <param name="period"></param>
-//        public BarCollection LoadBars(string symbol, int period)
         public StockDataSeries LoadBars(string filePath)
         {
             // Load from file
@@ -86,6 +114,7 @@ namespace TradeRobotics.DataProviders
             return DataSeries;
         }
 
+        #region Quotes
         /// <summary>
         /// Load quotes for one day
         /// </summary>
@@ -119,7 +148,7 @@ namespace TradeRobotics.DataProviders
         }
         
         /// <summary>
-        /// Get quotes from file
+        /// Get quotes portion from file
         /// </summary>
         /// <param name="symbol"></param>
         /// <returns></returns>
@@ -142,9 +171,100 @@ namespace TradeRobotics.DataProviders
 
             }
             return quotes;
-
         }
         #endregion
+
+
+        #region Depth
+        /// <summary>
+        /// Save level2 snapshot
+        /// </summary>
+        /// <param name="level2"></param>
+        public void SaveDepth()
+        {
+            if (this.DataSeries.Depth.Count == 0)
+                return;
+            // Form file path
+            string filePath = GetDepthFilePath(this.DataSeries.Depth[0].Time);
+            CreateDirectoriesIfNotExist(filePath);
+
+            using (StreamWriter stream = File.CreateText(filePath))
+            {
+                // Serialize
+                XmlSerializer serializer = new XmlSerializer(this.DataSeries.Depth.GetType());
+                serializer.Serialize(stream, this);
+                stream.Close();
+            }
+        }
+
+        /// <summary>
+        /// If no data for the date in history, load history
+        /// </summary>
+        /// <param name="date"></param>
+        public void LoadDepthIfNotLoaded(DateTime date)
+        {
+
+            if (this.DataSeries.Depth.Count == 0
+                ||
+                (this.DataSeries.Depth.First().Time <= date
+                    && this.DataSeries.Depth.Last().Time >= date))
+            {
+                return;
+            }
+            else
+            {
+                LoadDepth(date);
+            }
+        }
+
+
+        /// <summary>
+        /// Load history for special date
+        /// </summary>
+        /// <param name="date"></param>
+        public void LoadDepth(DateTime date)
+        {
+            string filePath = GetDepthFilePath(date);
+
+            this.DataSeries.Depth.Clear();
+            if (!File.Exists(filePath))
+                return;
+            using (StreamReader stream = File.OpenText(filePath))
+            {
+                XmlSerializer serializer = new XmlSerializer(this.DataSeries.Depth.GetType());
+                List<OrderBook> tmpDepth = serializer.Deserialize(stream) as List<OrderBook>;
+                this.DataSeries.Depth.AddRange(tmpDepth);
+            }
+        }
+
+        /// <summary>
+        /// Get history xml file path for special time
+        /// </summary>
+        /// <param name="time"></param>
+        /// <returns></returns>
+        public string GetDepthFilePath(DateTime time)
+        {
+            string filePath = string.Format(depthHistoryFileName, this.DataSeries.Symbol, time.ToString("yyyy-MM-dd"));
+            filePath = Path.Combine(Path.GetDirectoryName(DataContext.DataDirectory), filePath);
+            return filePath;
+        }
+
+        /// <summary>
+        /// Create directories for file path
+        /// </summary>
+        /// <param name="filePath"></param>
+        private void CreateDirectoriesIfNotExist(string filePath)
+        {
+            // Sy
+            DirectoryInfo symbolDirectory = new DirectoryInfo(Path.GetDirectoryName(filePath));
+            DirectoryInfo domDirectory = symbolDirectory.Parent;
+            if (!domDirectory.Exists)
+                domDirectory.Create();
+            if (!symbolDirectory.Exists)
+                symbolDirectory.Create();
+        }
+        #endregion
+
 
         /// <summary>
         /// New history data

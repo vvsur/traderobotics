@@ -45,7 +45,7 @@
         		</Grid>
         	</TabItem>
         	<TabItem x:Name="OrdersTab" Header="Orders">
-        		<local:OrdersControl Width="640"/>
+        		<local:OrdersControl x:Name="OrdersControl" Width="640"/>
         	</TabItem>
         </TabControl>
         <!--<local:DataSeriesListControl x:Name="DataSeriesControl" Grid.Row="1" d:LayoutOverrides="Width" SelectionChanged="DataSeriesList_SelectionChanged"/>-->

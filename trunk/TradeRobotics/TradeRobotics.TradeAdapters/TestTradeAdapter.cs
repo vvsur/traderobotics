@@ -13,6 +13,8 @@ namespace TradeRobotics.TradeAdapters
     /// </summary>
     public class TestTradeAdapter : ITradeAdapter
     {
+        public StockDataSeries DataSeries { get; set; }
+        
         /// <summary>
         /// Emulated orders
         /// </summary>

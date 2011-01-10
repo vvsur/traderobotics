@@ -6,9 +6,16 @@
 	mc:Ignorable="d"
 	x:Class="TradeRobotics.View.OrdersControl"
 	x:Name="UserControl"
-	d:DesignWidth="499" d:DesignHeight="41.984">
+	d:DesignWidth="499" d:DesignHeight="41.984" xmlns:my="clr-namespace:TradeRobotics.View">
 
 	<Grid x:Name="LayoutRoot" Background="#FFE5E5E5">
-			<DataGrid x:Name="OrdersDataGrid" Margin="0,0,0,4" d:LayoutOverrides="Width"/>
-	</Grid>
+			<DataGrid x:Name="OrdersDataGrid" Margin="0,0,0,4" d:LayoutOverrides="Width" ItemsSource="{Binding}" DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:OrdersControl, AncestorLevel=1}, Path=Orders}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="TimeColumn" Binding="{Binding Path=Time}" Header="Time" />
+                <DataGridTextColumn x:Name="SymbolColumn" Binding="{Binding Path=Symbol}" Header="Symbol" />
+                <DataGridTextColumn x:Name="OrderTypeColumn" Binding="{Binding Path=OrderType}" Header="Type" />
+                <DataGridTextColumn x:Name="PriceColumn" Binding="{Binding Path=Price}" Header="Price" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
 </UserControl>

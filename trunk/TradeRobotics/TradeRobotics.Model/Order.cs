@@ -10,18 +10,16 @@ namespace TradeRobotics.Model
     /// </summary>
     public class Order
     {
-        public DateTime Time;
+        public DateTime Time {get;set;}
 
         
-        public OrderType OrderType;
+        public OrderType OrderType {get;set;}
 
-        public string Symbol;
-        public double Price;
-        public double Volume;
+        public string Symbol {get;set;}
+        public double Price {get;set;}
+        public double Volume {get;set;}
 
-        /// <summary>
-        /// Buy or sell by market price
-        /// </summary>
-        public bool IsMarket = false;
+        public bool IsMarket { get; set; }
+
     }
 }
