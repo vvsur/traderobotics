@@ -149,7 +149,7 @@ namespace TradeRobotics.Test
                 {
                     HistoryDataProvider_Accessor target = new HistoryDataProvider_Accessor(); // TODO: Initialize to an appropriate value
 
-                    string filePath = string.Concat(TradeRobotics.DataProviders.DataContext.DataDirectory, "sbrf-3.10_2010.03.04_quotes.csv");
+                    string filePath = string.Concat(TradeRobotics.DataProviders.DataContext.DataDirectory, "sbrf-3.10_2010-03-04_quotes.csv");
                     var quotes = target.LoadQuotesFromFile(filePath);
                     Assert.AreNotEqual(quotes, null);
                     Assert.AreNotEqual(quotes.Count, 0);
@@ -175,5 +175,50 @@ namespace TradeRobotics.Test
                 target.LoadDepth(date);
                 Assert.IsTrue(target.DataSeries.Depth.Count > 0);
             }
+            /// <summary>
+            ///A test for LoadFromFileTest
+            ///</summary>
+            [TestMethod()]
+            public void LoadFromFileTest()
+            {
+                HistoryDataProvider target = new HistoryDataProvider(); // TODO: Initialize to an appropriate value
+                string filePath = string.Concat(TradeRobotics.DataProviders.DataContext.DataDirectory, "sbrf-3.10_2010-03-04_quotes.csv");
+                DateTime date = new DateTime(2010, 3, 4); // TODO: Initialize to an appropriate value
+                target.LoadFromFile(filePath);
+                Assert.IsTrue(target.DataSeries.Quotes.Count > 0);
+                Assert.IsTrue(target.DataSeries.Depth.Count > 0);
+            }
+
+            /// <summary>
+            ///A test for LoadFromFileTest
+            ///</summary>
+            [TestMethod()]
+            public void GetDataFileInfoTest()
+            {
+                HistoryDataProvider target = new HistoryDataProvider(); // TODO: Initialize to an appropriate value
+
+                // Test quotes file name
+                string filePath = string.Concat(TradeRobotics.DataProviders.DataContext.DataDirectory, "sbrf-3.10_2010-03-04_quotes.csv");
+                var fileInfo = target.GetDataFileInfo(filePath);
+                // Check is quotes
+                Assert.IsTrue(fileInfo.Item3);
+                // Check name
+                Assert.AreEqual(fileInfo.Item1, "sbrf-3.10");
+                // Check period
+                Assert.AreEqual(fileInfo.Item2, 0);
+
+                // Test bars file name
+                filePath = string.Concat(TradeRobotics.DataProviders.DataContext.DataDirectory, "sber_m5.csv");
+                fileInfo = target.GetDataFileInfo(filePath);
+                // Check name
+                Assert.AreEqual(fileInfo.Item1, "sber");
+                // Check period
+                Assert.AreEqual(fileInfo.Item2, 5);
+                // Check is quotes
+                Assert.IsFalse(fileInfo.Item3);
+
+            }
+
     }
+
 }
