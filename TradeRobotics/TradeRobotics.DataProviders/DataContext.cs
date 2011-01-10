@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Globalization;
+using System.IO;
+using System.Reflection;
 
 namespace TradeRobotics.DataProviders
 {
@@ -45,5 +47,9 @@ namespace TradeRobotics.DataProviders
         /// </summary>
         public static char Delimiter = ';';
         public static string DataDirectory = @".\Data\";
+        public static void Init()
+        {
+            DataDirectory = string.Concat(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "\\Data\\");
+        }
     }
 }

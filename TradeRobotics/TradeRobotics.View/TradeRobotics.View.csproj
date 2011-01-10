@@ -126,9 +126,9 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="Data\SBER_M5.csv">
+    <Content Include="Data\SBER_M5.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TradeRobotics.DataProviders\TradeRobotics.DataProviders.csproj">
