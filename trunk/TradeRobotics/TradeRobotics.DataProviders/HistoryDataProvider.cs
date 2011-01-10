@@ -90,7 +90,7 @@ namespace TradeRobotics.DataProviders
             // Load as bars
             if (!isQuotes)
             {
-                DataSeries = LoadBars(filePath);
+                DataSeries = LoadBars(fileName);
             }
             // Load as quotes
             else

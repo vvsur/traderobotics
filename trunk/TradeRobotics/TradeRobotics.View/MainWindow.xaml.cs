@@ -32,6 +32,7 @@ namespace TradeRobotics.View
         public MainWindow()
         {
             InitializeComponent();
+            TradeRobotics.DataProviders.DataContext.Init();
             LoadRobots();
             LoadDataSeries();
         }
