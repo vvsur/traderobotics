@@ -73,7 +73,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Data\SBER_M5.csv" />
+    <None Include="Data\SBER_M5.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Data\SBER_2009-12-01_QUOTES.csv" />
     <None Include="Data\SBRF-3.10_2010-03-04_quotes.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

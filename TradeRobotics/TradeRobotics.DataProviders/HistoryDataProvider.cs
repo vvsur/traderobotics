@@ -79,8 +79,10 @@ namespace TradeRobotics.DataProviders
         /// </summary>
         /// <param name="filePath"></param>
         /// <returns></returns>
-        public StockDataSeries LoadFromFile(string filePath)
+        public StockDataSeries LoadFromFile(string fileName)
         {
+            string filePath = string.Concat(TradeRobotics.DataProviders.DataContext.DataDirectory, fileName);
+
             DataSeries = new StockDataSeries();
             var dataFileInfo = GetDataFileInfo(filePath);
             bool isQuotes = dataFileInfo.Item3;
@@ -93,7 +95,7 @@ namespace TradeRobotics.DataProviders
             // Load as quotes
             else
             {
-                DataSeries.Quotes = LoadQuotesFromFile(filePath);
+                DataSeries.Quotes = LoadQuotesFromFile(fileName);
                 LoadDepth(this.DataSeries.Quotes.Last().Time);
             }
             return DataSeries;
@@ -147,8 +149,7 @@ namespace TradeRobotics.DataProviders
         public List<Quote> LoadQuotes(string symbol, DateTime date)
         {
             string fileName = string.Format(quotesHistoryFileName, symbol, date.ToString("yyyy-MM-dd"));
-            string filePath = string.Concat(DataContext.DataDirectory, fileName);
-            return LoadQuotesFromFile(filePath);
+            return LoadQuotesFromFile(fileName);
 
         }
 
@@ -165,7 +166,7 @@ namespace TradeRobotics.DataProviders
             List<Quote> allQuotes = new List<Quote>();
             foreach (string file in fileNames)
             {
-                allQuotes.AddRange(LoadQuotesFromFile(file));
+                allQuotes.AddRange(LoadQuotesFromFile(Path.GetFileName(file)));
             }
             return allQuotes;
         }
@@ -175,8 +176,9 @@ namespace TradeRobotics.DataProviders
         /// </summary>
         /// <param name="symbol"></param>
         /// <returns></returns>
-        protected List<Quote> LoadQuotesFromFile(string filePath)
+        protected List<Quote> LoadQuotesFromFile(string fileName)
         {
+            string filePath = string.Concat(TradeRobotics.DataProviders.DataContext.DataDirectory, fileName);
             /*string filePath = string.Format(quotesHistoryFileName, symbol);
             filePath = string.Concat(DataContext.DataDirectory, filePath);*/
 
