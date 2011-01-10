@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TradeRobotics.Model;
 
 namespace TradeRobotics.View
 {
@@ -21,6 +22,12 @@ namespace TradeRobotics.View
 		public OrdersControl()
 		{
 			this.InitializeComponent();
+            
 		}
+        public List<Order> Orders 
+        {
+            get { return OrdersDataGrid.DataContext as List<Order>; }
+            set { OrdersDataGrid.DataContext = value; }
+        }
 	}
 }

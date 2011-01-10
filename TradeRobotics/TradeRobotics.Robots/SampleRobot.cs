@@ -24,7 +24,7 @@ namespace TradeRobotics.Robots
             {
                 if (i % 10 == 0)
                 {
-                    // buy
+                    TradeAdapter.BuyAtMarket(DataProvider.DataSeries.Symbol, 1);
                 }
 
             }

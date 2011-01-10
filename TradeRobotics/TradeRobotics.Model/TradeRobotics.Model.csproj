@@ -44,6 +44,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bar.cs" />
+    <Compile Include="Depth\OrderBook.cs" />
+    <Compile Include="Depth\DepthOrder.cs" />
+    <Compile Include="Depth\DepthOrderType.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderType.cs" />
     <Compile Include="Quote.cs" />

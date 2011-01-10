@@ -15,15 +15,6 @@ namespace TradeRobotics.Test
     [TestClass()]
     public class HistoryDataProviderTest
     {
-
-
-        /// <summary>
-        ///This is a test class for HistoryDataProviderTest and is intended
-        ///to contain all HistoryDataProviderTest Unit Tests
-        ///</summary>
-        [TestClass()]
-        public class HistoryDataProviderTest1
-        {
             private TestContext testContextInstance;
 
             /// <summary>
@@ -108,7 +99,7 @@ namespace TradeRobotics.Test
                 try
                 {
                     HistoryDataProvider target = new HistoryDataProvider(); // TODO: Initialize to an appropriate value
-                    string symbol = "sber"; // TODO: Initialize to an appropriate value
+                    string symbol = "sbrf-3.10"; // TODO: Initialize to an appropriate value
 
                     List<Quote> quotes;
                     quotes = target.LoadQuotes(symbol);
@@ -131,8 +122,8 @@ namespace TradeRobotics.Test
                 try
                 {
                     HistoryDataProvider target = new HistoryDataProvider(); // TODO: Initialize to an appropriate value
-                    string symbol = "sber"; // TODO: Initialize to an appropriate value
-                    DateTime date = new DateTime(2009, 12, 1);
+                    string symbol = "sbrf-3.10"; // TODO: Initialize to an appropriate value
+                    DateTime date = new DateTime(2010, 3, 4);
 
                     List<Quote> quotes;
                     quotes = target.LoadQuotes(symbol, date);
@@ -158,7 +149,7 @@ namespace TradeRobotics.Test
                 {
                     HistoryDataProvider_Accessor target = new HistoryDataProvider_Accessor(); // TODO: Initialize to an appropriate value
 
-                    string filePath = string.Concat(TradeRobotics.DataProviders.DataContext.DataDirectory, "sber_2009.12.01_quotes.csv");
+                    string filePath = string.Concat(TradeRobotics.DataProviders.DataContext.DataDirectory, "sbrf-3.10_2010.03.04_quotes.csv");
                     var quotes = target.LoadQuotesFromFile(filePath);
                     Assert.AreNotEqual(quotes, null);
                     Assert.AreNotEqual(quotes.Count, 0);
@@ -170,6 +161,19 @@ namespace TradeRobotics.Test
                 }
 
             }
-        }
+
+            /// <summary>
+            ///A test for LoadDepth
+            ///</summary>
+            [TestMethod()]
+            public void LoadDepthTest()
+            {
+                HistoryDataProvider target = new HistoryDataProvider(); // TODO: Initialize to an appropriate value
+                target.DataSeries = new StockDataSeries();
+                target.DataSeries.Symbol = "sbrf-3.10";
+                DateTime date = new DateTime(2010,3,4); // TODO: Initialize to an appropriate value
+                target.LoadDepth(date);
+                Assert.IsTrue(target.DataSeries.Depth.Count > 0);
+            }
     }
 }

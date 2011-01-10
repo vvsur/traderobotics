@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TradeRobotics.Model.Depth;
 
 namespace TradeRobotics.Model
 {
@@ -24,6 +25,17 @@ namespace TradeRobotics.Model
         /// Bars data
         /// </summary>
         public List<Bar> Bars = new List<Bar>();
+
+        /// <summary>
+        /// Quotes data
+        /// </summary>
+        public List<Quote> Quotes = new List<Quote>();
+
+        /// <summary>
+        /// Depth of market
+        /// </summary>
+        public List<OrderBook> Depth = new List<OrderBook>();
+
         #region price data
         public List<DateTime> Times = new List<DateTime>();
         public List<double> Open = new List<double>();

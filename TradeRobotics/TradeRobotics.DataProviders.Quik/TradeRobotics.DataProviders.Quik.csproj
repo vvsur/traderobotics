@@ -83,11 +83,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Dom\BarsAndDom.cs" />
-    <Compile Include="Dom\Level2.cs" />
-    <Compile Include="Dom\DomLoader.cs" />
-    <Compile Include="Dom\Level2History.cs" />
-    <Compile Include="Dom\Order.cs" />
+    <Compile Include="Dom\BarsAndDom.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Dom\DomLoader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Dom\Level2.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Dom\Level2History.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Dom\Order.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Dom\OrderType.cs">
       <SubType>Code</SubType>
     </Compile>

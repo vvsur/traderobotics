@@ -26,7 +26,7 @@ namespace TradeRobotics.View
     public partial class MainWindow : Window
     {
         TradeRobotics.DataProviders.TestDataProvider DataProvider;
-        
+        TestTradeAdapter TradeAdapter;
         IRobot Robot;
 
         public MainWindow()
@@ -96,7 +96,7 @@ namespace TradeRobotics.View
             // Create robot
             Type robotType = RobotsComboBox.SelectedItem as Type;
             Robot = Activator.CreateInstance(robotType) as IRobot;
-            Robot.TradeAdapter = new TestTradeAdapter();
+            Robot.TradeAdapter = TradeAdapter = new TestTradeAdapter();
             
             //DataProvider.Tick += OnTestTick;
             TestProgress.Value = 1;            
@@ -105,6 +105,13 @@ namespace TradeRobotics.View
         private void OnTestTick(object sender, TickEventArgs e)
         {
             TestProgress.Value = (Convert.ToDouble(e.LastBarIndex) / Convert.ToDouble(DataProvider.DataSeries.Count)) * 100.0;
+            // If test ends
+            if (e.LastBarIndex >= e.DataSeries.Count - 1)
+            {
+                this.OrdersControl.Orders = TradeAdapter.Orders;
+                //this.OrdersControl.OrdersDataGrid.DataContext = TradeAdapter.Orders;
+                
+            }
         }
     }
 }
