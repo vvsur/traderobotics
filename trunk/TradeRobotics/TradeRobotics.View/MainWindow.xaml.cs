@@ -82,7 +82,7 @@ namespace TradeRobotics.View
                 DataProvider.Tick -= this.OnTestTick;
             }
             DataProvider = new DataProviders.TestDataProvider();
-            var barCollection = DataProvider.LoadBars(DataSeriesList.SelectedItem.ToString()+".csv");
+            var barCollection = DataProvider.LoadFromFile(DataSeriesList.SelectedItem.ToString()+".csv");
             PriceChart.LoadPriceChart(barCollection);
             DataProvider.Tick += OnTestTick;
         }

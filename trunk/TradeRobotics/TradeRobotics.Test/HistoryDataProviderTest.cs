@@ -3,6 +3,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using TradeRobotics.Model;
 using System.Collections.Generic;
+using System.Reflection;
+using System.IO;
 
 namespace TradeRobotics.Test
 {
@@ -54,8 +56,11 @@ namespace TradeRobotics.Test
             public void MyTestInitialize()
             {
                 // Set data directory to test project data folder
-                TradeRobotics.DataProviders.DataContext.DataDirectory = @"..\..\..\TradeRobotics.Test\Data\";
+        //        TradeRobotics.DataProviders.DataContext.DataDirectory = @"..\..\..\..\TradeRobotics.Test\Data\";
+                //TradeRobotics.DataProviders.DataContext.DataDirectory = Assembly.GetExecutingAssembly().CodeBase;
+                TradeRobotics.DataProviders.DataContext.DataDirectory = string.Concat(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),"\\Data\\");
             }
+
             //
             //Use TestCleanup to run code after each test has run
             //[TestCleanup()]
@@ -119,8 +124,6 @@ namespace TradeRobotics.Test
             [TestMethod()]
             public void LoadQuotesByDateTest()
             {
-                try
-                {
                     HistoryDataProvider target = new HistoryDataProvider(); // TODO: Initialize to an appropriate value
                     string symbol = "sbrf-3.10"; // TODO: Initialize to an appropriate value
                     DateTime date = new DateTime(2010, 3, 4);
@@ -129,11 +132,6 @@ namespace TradeRobotics.Test
                     quotes = target.LoadQuotes(symbol, date);
                     Assert.AreNotEqual(quotes, null);
                     Assert.AreNotEqual(quotes.Count, 0);
-                }
-                catch (Exception ex)
-                {
-                    Assert.Fail(ex.ToString());
-                }
 
             }
 
@@ -149,8 +147,8 @@ namespace TradeRobotics.Test
                 {
                     HistoryDataProvider_Accessor target = new HistoryDataProvider_Accessor(); // TODO: Initialize to an appropriate value
 
-                    string filePath = string.Concat(TradeRobotics.DataProviders.DataContext.DataDirectory, "sbrf-3.10_2010-03-04_quotes.csv");
-                    var quotes = target.LoadQuotesFromFile(filePath);
+                    string fileName = "sbrf-3.10_2010-03-04_quotes.csv";
+                    var quotes = target.LoadQuotesFromFile(fileName);
                     Assert.AreNotEqual(quotes, null);
                     Assert.AreNotEqual(quotes.Count, 0);
 
@@ -182,7 +180,7 @@ namespace TradeRobotics.Test
             public void LoadFromFileTest()
             {
                 HistoryDataProvider target = new HistoryDataProvider(); // TODO: Initialize to an appropriate value
-                string filePath = string.Concat(TradeRobotics.DataProviders.DataContext.DataDirectory, "sbrf-3.10_2010-03-04_quotes.csv");
+                string filePath = "sbrf-3.10_2010-03-04_quotes.csv";
                 DateTime date = new DateTime(2010, 3, 4); // TODO: Initialize to an appropriate value
                 target.LoadFromFile(filePath);
                 Assert.IsTrue(target.DataSeries.Quotes.Count > 0);
@@ -198,7 +196,7 @@ namespace TradeRobotics.Test
                 HistoryDataProvider target = new HistoryDataProvider(); // TODO: Initialize to an appropriate value
 
                 // Test quotes file name
-                string filePath = string.Concat(TradeRobotics.DataProviders.DataContext.DataDirectory, "sbrf-3.10_2010-03-04_quotes.csv");
+                string filePath =  "sbrf-3.10_2010-03-04_quotes.csv";
                 var fileInfo = target.GetDataFileInfo(filePath);
                 // Check is quotes
                 Assert.IsTrue(fileInfo.Item3);
