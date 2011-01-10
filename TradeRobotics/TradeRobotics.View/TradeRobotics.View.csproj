@@ -115,10 +115,10 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="Data\SBER_2009.12.01_quotes.csv">
+    <None Include="Data\SBER_2009-12-01_quotes.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Data\SBRF-3.10.csv">
+    <None Include="Data\SBRF-3.10_2010-03-04_quotes.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Properties\Settings.settings">

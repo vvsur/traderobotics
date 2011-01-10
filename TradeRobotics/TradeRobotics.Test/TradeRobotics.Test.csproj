@@ -74,8 +74,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\SBER_M5.csv" />
-    <None Include="Data\SBER_2009.12.01_QUOTES.csv" />
+    <None Include="Data\SBER_2009-12-01_QUOTES.csv" />
+    <None Include="Data\SBRF-3.10_2010-03-04_quotes.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Shadow Include="Test References\TradeRobotics.DataProviders.accessor" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\Depth\SBRF-3.10\2010-03-04.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -15,12 +15,12 @@ namespace TradeRobotics.DataProviders
     /// <summary>
     /// Provider historical data from file
     /// </summary>
-    public class HistoryDataProvider:IDataProvider
+    public class HistoryDataProvider : IDataProvider
     {
         /// <summary>
         /// Data series
         /// </summary>
-        public StockDataSeries DataSeries {get;set;}
+        public StockDataSeries DataSeries { get; set; }
 
 
         /// <summary>
@@ -28,25 +28,47 @@ namespace TradeRobotics.DataProviders
         /// </summary>
         public Tuple<string, int, bool> GetDataFileInfo(string fileName)
         {
-            Regex regex = new Regex(@"(?<name>\w+)_(?<periodName>[m,d])(?<periodValue>\d+)(?<quotes>_quotes)*\.csv$", RegexOptions.IgnoreCase);
+            Tuple<string, int, bool> result = new Tuple<string, int, bool>(string.Empty, 0, false);
+            
+            fileName = Path.GetFileName(fileName);
+            //Regex regex = new Regex(@"(?<name>\w+)_(?<periodName>[m,d])(?<periodValue>\d+)(?<quotes>_quotes)*\.csv$", RegexOptions.IgnoreCase);
 
-            Match match = regex.Match(fileName);
-            if(!match.Success)
-                return new Tuple<string, int, bool>(null,0,false);
+            // Try bars
+            Regex barsFileRegex = new Regex(@"(?<name>\w+)_(?<periodName>[m,d])(?<periodValue>\d+)\.csv$", RegexOptions.IgnoreCase);
+            Match match = barsFileRegex.Match(fileName);
+            if (match.Success)
+            {
+                // Prepare bars file info
+                string name = match.Groups["name"].Value;
+                string periodName = match.Groups["periodName"].Value;
+                int periodValue = Convert.ToInt32(match.Groups["periodValue"].Value);
+                if (periodName == "H")
+                    periodValue = 60 * periodValue;
+                if (periodName == "D")
+                    periodValue = 60 * 24 * periodValue;
+                result = new Tuple<string, int, bool>(name, periodValue, false);
 
-            string name = match.Groups["name"].Value;
-            string periodName = match.Groups["periodName"].Value;
-            int periodValue = Convert.ToInt32(match.Groups["periodValue"].Value);
-            if(periodName == "H") 
-                periodValue = 60*periodValue;
-            if(periodName == "D")
-                periodValue = 60*24*periodValue;
+            }
+            else
+            {
+                // Try quotes
+                Regex quotesFileRegex = new Regex(@"^(?<name>.+)_(?<date>\d+\-\d+\-\d+)(?<quotes>_quotes)\.csv$",RegexOptions.IgnoreCase);
+                match = quotesFileRegex.Match(fileName);
+                if(match.Success)
+                {
+                    // Prepare quotes file info
+                // Prepare bars file info
+                string name = match.Groups["name"].Value;
+                result = new Tuple<string, int, bool>(name, 0, true);
+                }
+            }
+
+            return result;
+
             bool isQuotes = (match.Groups["quotes"].Value == "_quotes");
-
-            return new Tuple<string,int,bool>(name, periodValue, isQuotes);
     
         }
-        
+
         //public const string historyFileName = @"{0}_M{1}.csv";
         public const string quotesHistoryFileName = @"{0}_{1}_quotes.csv";
         private static string depthHistoryFileName = @"Depth\{0}\{1}.xml";
@@ -59,18 +81,19 @@ namespace TradeRobotics.DataProviders
         /// <returns></returns>
         public StockDataSeries LoadFromFile(string filePath)
         {
-            StockDataSeries result = new StockDataSeries();
+            DataSeries = new StockDataSeries();
             var dataFileInfo = GetDataFileInfo(filePath);
             bool isQuotes = dataFileInfo.Item3;
+            DataSeries.Symbol = dataFileInfo.Item1;
             // Load as bars
             if (!isQuotes)
             {
-                result = LoadBars(filePath);
+                DataSeries = LoadBars(filePath);
             }
             // Load as quotes
             else
             {
-                this.DataSeries.Quotes = LoadQuotesFromFile(filePath);
+                DataSeries.Quotes = LoadQuotesFromFile(filePath);
                 LoadDepth(this.DataSeries.Quotes.Last().Time);
             }
             return DataSeries;
@@ -110,7 +133,7 @@ namespace TradeRobotics.DataProviders
                 DataSeries.Close.Add(bar.Close);
                 DataSeries.Volume.Add(bar.Volume);
             }
-            
+
             return DataSeries;
         }
 
@@ -123,12 +146,12 @@ namespace TradeRobotics.DataProviders
         /// <returns></returns>
         public List<Quote> LoadQuotes(string symbol, DateTime date)
         {
-            string fileName = string.Format(quotesHistoryFileName, symbol, date.ToString("yyyy.MM.dd"));
+            string fileName = string.Format(quotesHistoryFileName, symbol, date.ToString("yyyy-MM-dd"));
             string filePath = string.Concat(DataContext.DataDirectory, fileName);
             return LoadQuotesFromFile(filePath);
 
         }
-        
+
         /// <summary>
         /// Load all quotes for symbol
         /// </summary>
@@ -146,7 +169,7 @@ namespace TradeRobotics.DataProviders
             }
             return allQuotes;
         }
-        
+
         /// <summary>
         /// Get quotes portion from file
         /// </summary>
@@ -156,7 +179,7 @@ namespace TradeRobotics.DataProviders
         {
             /*string filePath = string.Format(quotesHistoryFileName, symbol);
             filePath = string.Concat(DataContext.DataDirectory, filePath);*/
-            
+
             string[] lines = File.ReadAllLines(filePath);
             int i = 0;
             List<Quote> quotes = new List<Quote>();
